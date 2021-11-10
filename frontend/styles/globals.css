@@ -1,0 +1,16 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  font-family: Times New Roman; 
+  background-color: rgba(225,240,224,1)
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+* {
+  box-sizing: border-box;
+}
