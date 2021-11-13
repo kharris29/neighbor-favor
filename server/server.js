@@ -5,6 +5,7 @@ const mongoose = require('mongoose');
 const app = express()
 
 const Test = require('./models/test-model.js');
+const Account = require('./models/account.js');
 
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(cors());
