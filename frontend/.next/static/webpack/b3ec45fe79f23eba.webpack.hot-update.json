@@ -1,1 +1,1 @@
-{"c":["webpack"],"r":[],"m":[]}
+{"c":["webpack"],"r":["pages/login","/_error"],"m":["./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2Flogin&absolutePagePath=%2FUsers%2Fanushtadevosyan%2FDesktop%2Fneighbor-favor-web%2Fneighbor-favor%2Ffrontend%2Fpages%2Flogin.js!","./pages/login.js","./node_modules/next/dist/build/webpack/loaders/next-client-pages-loader.js?page=%2F_error&absolutePagePath=%2FUsers%2Fanushtadevosyan%2FDesktop%2Fneighbor-favor-web%2Fneighbor-favor%2Ffrontend%2Fnode_modules%2Fnext%2Fdist%2Fpages%2F_error.js!"]}
