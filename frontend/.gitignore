@@ -7,7 +7,7 @@
 # testing
 /coverage
 
-# next.js
+next.js
 /out/
 
 # production
