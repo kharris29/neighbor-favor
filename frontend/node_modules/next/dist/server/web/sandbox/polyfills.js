@@ -4,6 +4,12 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.atob = atob;
 exports.btoa = btoa;
+Object.defineProperty(exports, "CryptoKey", {
+    enumerable: true,
+    get: function() {
+        return _webcrypto.CryptoKey;
+    }
+});
 exports.TextEncoder = exports.TextDecoder = void 0;
 var _webcrypto = require("next/dist/compiled/@peculiar/webcrypto");
 var _webStreamsPolyfill = require("next/dist/compiled/web-streams-polyfill");

@@ -102,7 +102,8 @@ function tryApplyUpdates() {
     }
 });
 (0, _websocket).connectHMR({
-    path: `${assetPrefix}/_next/webpack-hmr`
+    assetPrefix,
+    path: '/_next/webpack-hmr'
 });
 (0, _fouc).displayContent();
 (0, _onDemandEntriesClient).default();

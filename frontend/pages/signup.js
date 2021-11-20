@@ -29,6 +29,7 @@ function Signup() {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         setAnswerFromServer(data);
         document.querySelector("my-form").request();
       })

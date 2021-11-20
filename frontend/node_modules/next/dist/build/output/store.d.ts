@@ -16,5 +16,6 @@ export declare type OutputState = {
     modules: number;
     errors: string[] | null;
     warnings: string[] | null;
+    hasServerWeb: boolean;
 }));
 export declare const store: import("unistore").Store<OutputState>;

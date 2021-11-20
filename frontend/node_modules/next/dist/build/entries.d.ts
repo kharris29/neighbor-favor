@@ -5,7 +5,7 @@ import type { webpack5 } from 'next/dist/compiled/webpack/webpack';
 declare type ObjectValue<T> = T extends {
     [key: string]: infer V;
 } ? V : never;
-declare type PagesMapping = {
+export declare type PagesMapping = {
     [page: string]: string;
 };
 export declare function createPagesMapping(pagePaths: string[], extensions: string[], isDev: boolean, hasServerComponents: boolean): PagesMapping;

@@ -1,4 +1,4 @@
-import { webpack } from 'next/dist/compiled/webpack/webpack';
+import { webpack5 } from 'next/dist/compiled/webpack/webpack';
 export declare const ssrEntries: Map<string, {
     requireFlightManifest: boolean;
 }>;
@@ -18,9 +18,11 @@ export interface MiddlewareManifest {
 }
 export default class MiddlewarePlugin {
     dev: boolean;
-    constructor({ dev }: {
+    webServerRuntime: boolean;
+    constructor({ dev, webServerRuntime, }: {
         dev: boolean;
+        webServerRuntime: boolean;
     });
-    createAssets(compilation: any, assets: any, envPerRoute: Map<string, string[]>): void;
-    apply(compiler: webpack.Compiler): void;
+    createAssets(compilation: webpack5.Compilation, assets: any, envPerRoute: Map<string, string[]>): void;
+    apply(compiler: webpack5.Compiler): void;
 }

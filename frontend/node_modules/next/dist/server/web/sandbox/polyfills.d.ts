@@ -1,4 +1,4 @@
-import { Crypto as WebCrypto } from 'next/dist/compiled/@peculiar/webcrypto';
+import { Crypto as WebCrypto, CryptoKey } from 'next/dist/compiled/@peculiar/webcrypto';
 export declare function atob(b64Encoded: string): string;
 export declare function btoa(str: string): string;
 declare class TextEncoderRuntime {
@@ -17,6 +17,7 @@ declare class TextDecoderRuntime {
 }
 export { TextDecoderRuntime as TextDecoder };
 export { TextEncoderRuntime as TextEncoder };
+export { CryptoKey };
 export declare class Crypto extends WebCrypto {
     randomUUID: any;
 }

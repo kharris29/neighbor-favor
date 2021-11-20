@@ -340,6 +340,9 @@ function Image(_param) {
         if (priority && loading === 'lazy') {
             throw new Error(`Image with src "${src}" has both "priority" and "loading='lazy'" properties. Only one should be used.`);
         }
+        if (sizes && layout !== 'fill' && layout !== 'responsive') {
+            console.warn(`Image with src "${src}" has "sizes" property but it will be ignored. Only use "sizes" with "layout='fill'" or "layout='responsive'".`);
+        }
         if (placeholder === 'blur') {
             if (layout !== 'fill' && (widthInt || 0) * (heightInt || 0) < 1600) {
                 console.warn(`Image with src "${src}" is smaller than 40x40. Consider removing the "placeholder='blur'" property to improve performance.`);
@@ -616,7 +619,7 @@ function cloudinaryLoader({ root , src , width , quality  }) {
         'w_' + width,
         'q_' + (quality || 'auto')
     ];
-    let paramsString = params.join(',') + '/';
+    const paramsString = params.join(',') + '/';
     return `${root}${paramsString}${normalizeSrc(src)}`;
 }
 function customLoader({ src  }) {

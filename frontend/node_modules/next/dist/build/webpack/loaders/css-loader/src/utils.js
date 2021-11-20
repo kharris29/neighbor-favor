@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.sort = exports.isUrlRequestable = exports.resolveRequests = exports.getExportCode = exports.getModuleCode = exports.getImportCode = exports.getPreRequester = exports.normalizeSourceMap = exports.getModulesPlugins = exports.getModulesOptions = exports.getFilter = exports.requestify = exports.normalizeUrl = exports.shouldUseIcssPlugin = exports.shouldUseURLPlugin = exports.shouldUseImportPlugin = exports.shouldUseModulesPlugins = exports.normalizeOptions = exports.isDataUrl = void 0;
 var _url = require("url");
 var _path = _interopRequireDefault(require("path"));
-var _loaderUtils = require("next/dist/compiled/loader-utils");
+var _loaderUtils3 = require("next/dist/compiled/loader-utils3");
 var _postcssModulesValues = _interopRequireDefault(require("next/dist/compiled/postcss-modules-values"));
 var _postcssModulesLocalByDefault = _interopRequireDefault(require("next/dist/compiled/postcss-modules-local-by-default"));
 var _postcssModulesExtractImports = _interopRequireDefault(require("next/dist/compiled/postcss-modules-extract-imports"));
@@ -49,7 +49,7 @@ function requestify(url, rootContext) {
     if (/^[a-z][a-z0-9+.-]*:/i.test(url)) {
         return url;
     }
-    return url.charAt(0) === '/' ? (0, _loaderUtils).urlToRequest(url, rootContext) : (0, _loaderUtils).urlToRequest(url);
+    return url.charAt(0) === '/' ? (0, _loaderUtils3).urlToRequest(url, rootContext) : (0, _loaderUtils3).urlToRequest(url);
 }
 function getFilter(filter, resourcePath) {
     return (...args)=>{

@@ -13,6 +13,7 @@ var _fs = require("fs");
 var _getOrientation = require("get-orientation");
 var _imageSize = _interopRequireDefault(require("image-size"));
 var _isAnimated = _interopRequireDefault(require("next/dist/compiled/is-animated"));
+var _contentDisposition = _interopRequireDefault(require("next/dist/compiled/content-disposition"));
 var _path = require("path");
 var _stream = _interopRequireDefault(require("stream"));
 var _url = _interopRequireDefault(require("url"));
@@ -451,7 +452,9 @@ function setResponseHeaders(req, res, url, etag, maxAge, contentType, isStatic, 
     }
     const fileName = getFileNameWithExtension(url, contentType);
     if (fileName) {
-        res.setHeader('Content-Disposition', `inline; filename="${fileName}"`);
+        res.setHeader('Content-Disposition', (0, _contentDisposition).default(fileName, {
+            type: 'inline'
+        }));
     }
     res.setHeader('Content-Security-Policy', `script-src 'none'; sandbox;`);
     return {

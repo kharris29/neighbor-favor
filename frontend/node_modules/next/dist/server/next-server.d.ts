@@ -16,9 +16,10 @@ import type { FontManifest } from './font-utils';
 import type { FetchEventResult } from './web/types';
 import type { MiddlewareManifest } from '../build/webpack/plugins/middleware-plugin';
 import type { ParsedNextUrl } from '../shared/lib/router/utils/parse-next-url';
+import type { NextParsedUrlQuery, NextUrlWithParsedQuery } from './request-meta';
 export declare type FindComponentsResult = {
     components: LoadComponentsReturnType;
-    query: ParsedUrlQuery;
+    query: NextParsedUrlQuery;
 };
 interface RoutingItem {
     page: string;
@@ -96,7 +97,7 @@ export default class Server {
     });
     logError(err: Error): void;
     private handleRequest;
-    getRequestHandler(): (req: IncomingMessage, res: ServerResponse, parsedUrl?: UrlWithParsedQuery | undefined) => Promise<void>;
+    getRequestHandler(): (req: IncomingMessage, res: ServerResponse, parsedUrl?: NextUrlWithParsedQuery | undefined) => Promise<void>;
     setAssetPrefix(prefix?: string): void;
     prepare(): Promise<void>;
     protected close(): Promise<void>;
@@ -119,6 +120,7 @@ export default class Server {
         response: ServerResponse;
         parsedUrl: ParsedNextUrl;
         parsed: UrlWithParsedQuery;
+        onWarning?: (warning: Error) => void;
     }): Promise<FetchEventResult | null>;
     protected generateRoutes(): {
         basePath: string;
@@ -154,8 +156,8 @@ export default class Server {
     protected run(req: IncomingMessage, res: ServerResponse, parsedUrl: UrlWithParsedQuery): Promise<void>;
     private pipe;
     private getStaticHTML;
-    render(req: IncomingMessage, res: ServerResponse, pathname: string, query?: ParsedUrlQuery, parsedUrl?: UrlWithParsedQuery): Promise<void>;
-    protected findPageComponents(pathname: string, query?: ParsedUrlQuery, params?: Params | null): Promise<FindComponentsResult | null>;
+    render(req: IncomingMessage, res: ServerResponse, pathname: string, query?: NextParsedUrlQuery, parsedUrl?: NextUrlWithParsedQuery): Promise<void>;
+    protected findPageComponents(pathname: string, query?: NextParsedUrlQuery, params?: Params | null): Promise<FindComponentsResult | null>;
     protected getStaticPaths(pathname: string): Promise<{
         staticPaths: string[] | undefined;
         fallbackMode: 'static' | 'blocking' | false;
@@ -163,12 +165,12 @@ export default class Server {
     private renderToResponseWithComponents;
     private renderToResponse;
     renderToHTML(req: IncomingMessage, res: ServerResponse, pathname: string, query?: ParsedUrlQuery): Promise<string | null>;
-    renderError(err: Error | null, req: IncomingMessage, res: ServerResponse, pathname: string, query?: ParsedUrlQuery, setHeaders?: boolean): Promise<void>;
+    renderError(err: Error | null, req: IncomingMessage, res: ServerResponse, pathname: string, query?: NextParsedUrlQuery, setHeaders?: boolean): Promise<void>;
     private customErrorNo404Warn;
     private renderErrorToResponse;
     renderErrorToHTML(err: Error | null, req: IncomingMessage, res: ServerResponse, pathname: string, query?: ParsedUrlQuery): Promise<string | null>;
     protected getFallbackErrorComponents(): Promise<LoadComponentsReturnType | null>;
-    render404(req: IncomingMessage, res: ServerResponse, parsedUrl?: UrlWithParsedQuery, setHeaders?: boolean): Promise<void>;
+    render404(req: IncomingMessage, res: ServerResponse, parsedUrl?: NextUrlWithParsedQuery, setHeaders?: boolean): Promise<void>;
     serveStatic(req: IncomingMessage, res: ServerResponse, path: string, parsedUrl?: UrlWithParsedQuery): Promise<void>;
     private _validFilesystemPathSet;
     private getFilesystemPaths;

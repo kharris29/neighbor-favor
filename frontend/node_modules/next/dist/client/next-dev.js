@@ -21,7 +21,8 @@ const { __NEXT_DATA__: { assetPrefix  } ,  } = window;
 const prefix = assetPrefix || '';
 const webpackHMR = (0, _webpackHotMiddlewareClient).default();
 (0, _websocket).connectHMR({
-    path: `${prefix}/_next/webpack-hmr`
+    assetPrefix: prefix,
+    path: '/_next/webpack-hmr'
 });
 window.next = {
     version: _.version,
@@ -69,7 +70,7 @@ window.next = {
     if (process.env.__NEXT_BUILD_INDICATOR) {
         (0, _devBuildWatcher).default((handler)=>{
             buildIndicatorHandler = handler;
-        });
+        }, process.env.__NEXT_BUILD_INDICATOR_POSITION);
     }
     // delay rendering until after styles have been applied in development
     (0, _fouc).displayContent(()=>{

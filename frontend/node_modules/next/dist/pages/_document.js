@@ -430,7 +430,7 @@ class Head extends _react.Component {
             });
             var _nonce, _nonce1;
             return(/*#__PURE__*/ _react.default.createElement("head", Object.assign({
-            }, this.props), this.context.isDevelopment && /*#__PURE__*/ _react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/ _react.default.createElement("style", {
+            }, this.props), !process.env.__NEXT_CONCURRENT_FEATURES && this.context.isDevelopment && /*#__PURE__*/ _react.default.createElement(_react.default.Fragment, null, /*#__PURE__*/ _react.default.createElement("style", {
                 "data-next-hide-fouc": true,
                 "data-ampdevmode": inAmpMode ? 'true' : undefined,
                 dangerouslySetInnerHTML: {
@@ -492,13 +492,14 @@ class Head extends _react.Component {
 }
 exports.Head = Head;
 Head.contextType = _utils.HtmlContext;
-function Main() {
-    const { inAmpMode , docComponentsRendered  } = (0, _react).useContext(_utils.HtmlContext);
+function Main({ children  }) {
+    const { inAmpMode , docComponentsRendered , useMainContent  } = (0, _react).useContext(_utils.HtmlContext);
+    const content = useMainContent(children);
     docComponentsRendered.Main = true;
-    if (inAmpMode) return(/*#__PURE__*/ _react.default.createElement(_react.default.Fragment, null, _constants.BODY_RENDER_TARGET));
+    if (inAmpMode) return content;
     return(/*#__PURE__*/ _react.default.createElement("div", {
         id: "__next"
-    }, _constants.BODY_RENDER_TARGET));
+    }, content));
 }
 class NextScript extends _react.Component {
     getDynamicChunks(files) {

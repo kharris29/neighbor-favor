@@ -10,9 +10,9 @@ function _interopRequireDefault(obj) {
         default: obj
     };
 }
-async function __overrideCssConfiguration(rootDirectory, isProduction, config) {
+async function __overrideCssConfiguration(rootDirectory, supportedBrowsers, config) {
     var ref, ref1;
-    const postCssPlugins = await (0, _plugins).getPostCssPlugins(rootDirectory, isProduction);
+    const postCssPlugins = await (0, _plugins).getPostCssPlugins(rootDirectory, supportedBrowsers);
     function patch(rule) {
         if (rule.options && typeof rule.options === 'object' && typeof rule.options.postcssOptions === 'object') {
             rule.options.postcssOptions.plugins = postCssPlugins;

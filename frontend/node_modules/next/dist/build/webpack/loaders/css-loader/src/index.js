@@ -3,19 +3,19 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 exports.default = loader;
-var _loaderUtils = require("next/dist/compiled/loader-utils");
 var _postcss = _interopRequireDefault(require("postcss"));
 var _cssSyntaxError = _interopRequireDefault(require("./CssSyntaxError"));
 var _warning = _interopRequireDefault(require("../../postcss-loader/src/Warning"));
 var _plugins = require("./plugins");
 var _utils = require("./utils");
+var _stringifyRequest = require("../../../stringify-request");
 function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : {
         default: obj
     };
 }
 async function loader(content, map, meta) {
-    const rawOptions = (0, _loaderUtils).getOptions(this);
+    const rawOptions = this.getOptions();
     const plugins = [];
     const callback = this.async();
     const loaderSpan = this.currentTraceSpan.traceChild('css-loader');
@@ -62,7 +62,7 @@ async function loader(content, map, meta) {
                 rootContext: this.rootContext,
                 filter: (0, _utils).getFilter(options.import, this.resourcePath),
                 resolver,
-                urlHandler: (url)=>(0, _loaderUtils).stringifyRequest(this, (0, _utils).getPreRequester(this)(options.importLoaders) + url)
+                urlHandler: (url)=>(0, _stringifyRequest).stringifyRequest(this, (0, _utils).getPreRequester(this)(options.importLoaders) + url)
             }));
         }
         const urlPluginImports = [];
@@ -84,7 +84,7 @@ async function loader(content, map, meta) {
                 rootContext: this.rootContext,
                 filter: (0, _utils).getFilter(options.url, this.resourcePath),
                 resolver: urlResolver,
-                urlHandler: (url)=>(0, _loaderUtils).stringifyRequest(this, url)
+                urlHandler: (url)=>(0, _stringifyRequest).stringifyRequest(this, url)
             }));
         }
         const icssPluginImports = [];
@@ -114,7 +114,7 @@ async function loader(content, map, meta) {
                 context: this.context,
                 rootContext: this.rootContext,
                 resolver: icssResolver,
-                urlHandler: (url)=>(0, _loaderUtils).stringifyRequest(this, (0, _utils).getPreRequester(this)(options.importLoaders) + url)
+                urlHandler: (url)=>(0, _stringifyRequest).stringifyRequest(this, (0, _utils).getPreRequester(this)(options.importLoaders) + url)
             }));
         }
         // Reuse CSS AST (PostCSS AST e.g 'postcss-loader') to avoid reparsing
@@ -152,7 +152,7 @@ async function loader(content, map, meta) {
         if (options.modules.exportOnlyLocals !== true) {
             imports.unshift({
                 importName: '___CSS_LOADER_API_IMPORT___',
-                url: (0, _loaderUtils).stringifyRequest(this, require.resolve('./runtime/api'))
+                url: (0, _stringifyRequest).stringifyRequest(this, require.resolve('./runtime/api'))
             });
         }
         const importCode = (0, _utils).getImportCode(imports, options);

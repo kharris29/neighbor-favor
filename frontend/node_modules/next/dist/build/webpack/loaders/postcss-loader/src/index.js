@@ -6,7 +6,6 @@ exports.default = loader;
 var _warning = _interopRequireDefault(require("./Warning"));
 var _error = _interopRequireDefault(require("./Error"));
 var _utils = require("./utils");
-var _loaderUtils = require("next/dist/compiled/loader-utils");
 function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : {
         default: obj
@@ -16,7 +15,7 @@ async function loader(content, sourceMap, meta) {
     const loaderSpan = this.currentTraceSpan.traceChild('postcss-loader');
     const callback = this.async();
     loaderSpan.traceAsyncFn(async ()=>{
-        const options = (0, _loaderUtils).getOptions(this);
+        const options = this.getOptions();
         const file = this.resourcePath;
         const useSourceMap = typeof options.sourceMap !== 'undefined' ? options.sourceMap : this.sourceMap;
         const processOptions = {

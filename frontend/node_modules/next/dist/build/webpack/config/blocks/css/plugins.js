@@ -5,7 +5,6 @@ Object.defineProperty(exports, "__esModule", {
 exports.getPostCssPlugins = getPostCssPlugins;
 var _chalk = _interopRequireDefault(require("chalk"));
 var _findConfig = require("../../../../../lib/find-config");
-var _browserslist = _interopRequireDefault(require("browserslist"));
 function _interopRequireDefault(obj) {
     return obj && obj.__esModule ? obj : {
         default: obj
@@ -67,21 +66,13 @@ async function loadPlugin(dir, pluginName, options) {
         );
     }
 }
-function getDefaultPlugins(baseDirectory, isProduction) {
-    let browsers;
-    try {
-        browsers = _browserslist.default.loadConfig({
-            path: baseDirectory,
-            env: isProduction ? 'production' : 'development'
-        });
-    } catch  {
-    }
+function getDefaultPlugins(supportedBrowsers) {
     return [
         require.resolve('next/dist/compiled/postcss-flexbugs-fixes'),
         [
             require.resolve('next/dist/compiled/postcss-preset-env'),
             {
-                browsers: browsers !== null && browsers !== void 0 ? browsers : [
+                browsers: supportedBrowsers !== null && supportedBrowsers !== void 0 ? supportedBrowsers : [
                     'defaults'
                 ],
                 autoprefixer: {
@@ -98,11 +89,11 @@ function getDefaultPlugins(baseDirectory, isProduction) {
         ], 
     ];
 }
-async function getPostCssPlugins(dir, isProduction, defaults = false) {
+async function getPostCssPlugins(dir, supportedBrowsers, defaults = false) {
     let config = defaults ? null : await (0, _findConfig).findConfig(dir, 'postcss');
     if (config == null) {
         config = {
-            plugins: getDefaultPlugins(dir, isProduction)
+            plugins: getDefaultPlugins(supportedBrowsers)
         };
     }
     if (typeof config === 'function') {
