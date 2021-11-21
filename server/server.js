@@ -118,6 +118,8 @@ app.get("/favor_requests", async (req, res) => {
 
 // Create a favor request
 app.post("/add_favor", async (req, res) => {
+
+  console.log('Calling proper function!');
   const newFavor = new Favor({
     username: req.body.username,
     building: req.body.building,

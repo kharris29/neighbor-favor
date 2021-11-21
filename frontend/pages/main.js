@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "../styles/main.module.css";
 
+// Get data from database to show in table
 export const getStaticProps = async () => {
     const res = await fetch('http://localhost:3001/favor_requests');
     const data = await res.json();
@@ -12,16 +13,18 @@ export const getStaticProps = async () => {
 
 function Main({favor_data}) {
 
-    // -------
+    //-------------------------------
+
     // Insert into database
     const [username, setUsername] = useState("");
     const [building, setBuilding] = useState("");
     const [favor_item, setFavorItem] = useState("");
     //const [answerFromServer, setAnswerFromServer] = useState("");
 
-    const addFavor = async (e) => {
+    const handleAddFavor = async (e) => {
 
         e.preventDefault();
+        console.log("Attempting to add favor")
 
         await fetch("http://localhost:3001/add_favor", {
         method: "POST",
@@ -39,12 +42,12 @@ function Main({favor_data}) {
             console.log(data);
             console.log("hello");
             //setAnswerFromServer(data);
-            document.querySelector("my-form").request();
+            //document.querySelector("my-form").request();
         })
         .catch((e) => console.log(e));
     };
 
-    //--------
+    //-------------------------------
 
     const [favors, setFavors] = useState(favor_data);
     const [addTableData, setAddTableData] = useState({
@@ -53,34 +56,31 @@ function Main({favor_data}) {
         favor_item: ''
     })
 
-    const handleAddTableChange = (event) => {
-        event.preventDefault();
+    // const handleAddTableChange = (event) => {
+    //     event.preventDefault();
 
-        const fieldName = event.target.getAttribute('name');
-        const fieldValue = event.target.value;
+    //     const fieldName = event.target.getAttribute('name');
+    //     const fieldValue = event.target.value;
 
-        const newTableData = { ...addTableData };
-        newTableData[fieldName] = fieldValue;
+    //     const newTableData = { ...addTableData };
+    //     newTableData[fieldName] = fieldValue;
 
-        setAddTableData(newTableData);
-    };
+    //     setAddTableData(newTableData);
+    // };
 
-    const handleAddFormSubmit = (event) => {
+    // const handleAddFormSubmit = (event) => {
 
-        // Insert into database
+    //     event.preventDefault();
 
+    //     const newFavor = {
+    //         username: addTableData.username,
+    //         building: addTableData.building,
+    //         favor_item: addTableData.favor_item
+    //     };
 
-        event.preventDefault();
-
-        const newFavor = {
-            username: addTableData.username,
-            building: addTableData.building,
-            favor_item: addTableData.favor_item
-        };
-
-        const newFavors = [...favors, newFavor];
-        setFavors(newFavors);
-    };
+    //     const newFavors = [...favors, newFavor];
+    //     setFavors(newFavors);
+    // };
 
     // const handleDeleteClick = (username) => {
     //     const newFavors = [...favors];
@@ -91,6 +91,7 @@ function Main({favor_data}) {
 
     //     setFavors(newFavors);
     // }
+
     return (
         <div className={styles.main_table_container}>
             <table>
@@ -111,10 +112,12 @@ function Main({favor_data}) {
                 ))}
             </tbody>
             </table>
+
             <h2>Request a favor!</h2>
-            <form onSubmit = {addFavor}>
+            <form onSubmit = {handleAddFavor}>
                 <input 
                 // <form onSubmit = {handleAddFormSubmit}> [ above input ]
+                //<form onSubmit = {handleAddFavor}>
                 type = "text"
                 name = "username"
                 required = "required"
@@ -125,7 +128,7 @@ function Main({favor_data}) {
 
                 <input 
                 type = "text"
-                name = "buidling"
+                name = "building"
                 required = "required"
                 placeholder = "Enter a building..."
                 onChange={(e) => setBuilding(e.target.value)}
