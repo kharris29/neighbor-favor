@@ -62,4 +62,9 @@ app.post("/login", async (req, res) => {
   }
 });
 
+// starting new endpoint
+app.get("/get-users-from-building", (req, es) => {
+  res.json("asdsad");
+});
+
 app.listen(3001, () => console.log("Listening at localhost:3001"));
