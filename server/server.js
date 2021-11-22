@@ -9,6 +9,7 @@ const Account_Ctrl = require('./controllers/account-ctrl.js');
 const Test = require("./models/test-model.js");
 const Account = require("./models/account.js");
 const Favor = require("./models/favor.js");
+const favor = require("./models/favor.js");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
@@ -120,18 +121,19 @@ app.get("/favor_requests", async (req, res) => {
 app.post("/add_favor", async (req, res) => {
 
   console.log('Calling proper function!');
-  const newFavor = new Favor({
-    username: req.body.username,
-    building: req.body.building,
-    favor_item: req.body.favor_item,
-  }, (err, favor) => {
-    if (err) {
-      console.log(err);
-    } else {
-      console.log('New favor added!');
-      console.log(favor);
-    }
-  })
+  console.log(req.body);
+
+  const newFavor = new Favor({username: req.body.username, building: req.body.building, favor_item: req.body.favor_item});
+
+  newFavor.save((err, favor) => {
+    console.log(favor);
+    console.log('added!')
+    res.json('New Favor Added!');
+  });
 });
+
+// app.post("/remove_favor", async (req, res) => {
+
+// })
 
 app.listen(3001, () => console.log("Listening at localhost:3001"));
