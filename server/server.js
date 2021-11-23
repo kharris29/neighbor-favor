@@ -11,6 +11,8 @@ const Account = require("./models/account.js");
 const Favor = require("./models/favor.js");
 const favor = require("./models/favor.js");
 
+let currAcct;
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors());
 app.use(bodyParser.json());
@@ -94,12 +96,13 @@ app.post("/register", async (req, res) => {
 app.post("/login", async (req, res) => {
   const { username, password } = req.body;
   try {
-    const accounts = await Account.find({
+    const account = await Account.findOne({
       username: username,
       password: password,
     });
-    res.json(accounts);
-    console.log(accounts);
+    currAcct = account;
+    res.json(account);
+    console.log(account);
   } catch (error) {
     console.log(error);
   }
@@ -111,7 +114,8 @@ app.get("/favor_requests", async (req, res) => {
     if (err) {
       console.log(err);
     } else {
-      console.log(favors);
+    //   console.log(favors);
+      console.log(currAcct);
       res.json(favors);
     }
   });
@@ -121,19 +125,24 @@ app.get("/favor_requests", async (req, res) => {
 app.post("/add_favor", async (req, res) => {
 
   console.log('Calling proper function!');
-  console.log(req.body);
-
-  const newFavor = new Favor({username: req.body.username, building: req.body.building, favor_item: req.body.favor_item});
+  console.log(currAcct);
+  const username = currAcct.username;
+  const building = currAcct.building;
+  console.log(username)   
+  console.log(building)
+  const newFavor = new Favor({username: username, building: building, favor_item: req.body.favor_item});
 
   newFavor.save((err, favor) => {
     console.log(favor);
     console.log('added!')
     res.json('New Favor Added!');
+    // res.json(favor);
+    
   });
 });
 
-// app.post("/remove_favor", async (req, res) => {
-
-// })
+app.post("/remove_favor", async (req, res) => {
+  Favor.deleteOne({_id: req.body.id});  
+});
 
 app.listen(3001, () => console.log("Listening at localhost:3001"));
