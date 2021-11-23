@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import styles from "../styles/main.module.css";
+import Router from "next/router";
 
 // Get data from database to show in table
 export const getStaticProps = async () => {
@@ -13,7 +14,7 @@ export const getStaticProps = async () => {
 
 function Main({favor_data}) {
 
-    // Insert into database
+    // Add a favor into database
     const [username, setUsername] = useState("");
     const [building, setBuilding] = useState("");
     const [favor_item, setFavorItem] = useState("");
@@ -38,17 +39,42 @@ function Main({favor_data}) {
         .then((data) => {
             console.log(data);
             console.log("hello");
-            //setAnswerFromServer(data);
-            //document.querySelector("my-form").request();
+
+            // Refresh page
+            Router.reload();
         })
         .catch((e) => console.log(e));
     };
+
+    // Remove a favor from database
+    const handleRemoveFavor = async (id, e) => {
+
+        alert('hello! ID is: ' + id);
+        //console.log("ID is: " + id);
+        e.preventDefault();
+    
+        await fetch("http://localhost:3001/remove_favor", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({id})
+        })
+          .then((response) => response.json())
+          .then((data) => {
+            console.log("Success?")
+            console.log(data);
+            Router.reload();
+          })
+          .catch((e) => console.log(e));
+      };
 
     const [favors, setFavors] = useState(favor_data);
     const [addTableData, setAddTableData] = useState({
         username: '',
         building: '',
-        favor_item: ''
+        favor_item: '',
+        __id: ''
     })
 
     return (
@@ -59,6 +85,7 @@ function Main({favor_data}) {
                         <th>Username</th>
                         <th>Building</th>
                         <th>Favor Item</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
             <tbody>
@@ -67,6 +94,10 @@ function Main({favor_data}) {
                         <td>{favor.username}</td>
                         <td>{favor.building}</td>
                         <td>{favor.favor_item}</td>
+                        <td>
+                        <button onClick={(e)=>handleRemoveFavor(favor._id, e)}>Accept Favor</button>
+                        {/* <button onClick={()=>sayHello(favor._id)}>Accept Favor</button> */}
+                        </td>
                     </tr> 
                 ))}
             </tbody>
@@ -103,5 +134,6 @@ function Main({favor_data}) {
     
     );
 }
+
 
 export default Main

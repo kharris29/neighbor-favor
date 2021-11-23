@@ -142,6 +142,8 @@ app.post("/add_favor", async (req, res) => {
 });
 
 app.post("/remove_favor", async (req, res) => {
+  console.log("Backend received ID:")
+  console.log(req.body.id)
   Favor.deleteOne({_id: req.body.id});  
 });
 
