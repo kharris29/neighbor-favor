@@ -2,6 +2,7 @@ const express = require("express");
 const bodyParser = require("body-parser");
 const cors = require("cors");
 const mongoose = require("mongoose");
+const mongodb = require("mongodb");
 const app = express();
 
 const Account_Ctrl = require('./controllers/account-ctrl.js');
@@ -144,7 +145,19 @@ app.post("/add_favor", async (req, res) => {
 app.post("/remove_favor", async (req, res) => {
   console.log("Backend received ID:")
   console.log(req.body.id)
-  Favor.deleteOne({_id: req.body.id});  
+  const obj_id = new mongodb.ObjectId(req.body.id);
+  console.log(obj_id)
+  Favor.findOne({_id: obj_id}, (err, favor) => {
+    if (err) {
+      console.log(err);
+    } else {
+        console.log(favor);
+        Favor.deleteOne(favor, (err, result) => {
+            console.log(result);
+        });
+    }
+  });
+  //Favor.deleteOne({_id: obj_id});  
 });
 
 app.listen(3001, () => console.log("Listening at localhost:3001"));
