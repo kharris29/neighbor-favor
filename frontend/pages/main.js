@@ -18,6 +18,7 @@ function Main({favor_data}) {
     const [username, setUsername] = useState("");
     const [building, setBuilding] = useState("");
     const [favor_item, setFavorItem] = useState("");
+    const [favor_description, setFavorDescription] = useState("");
 
     const handleAddFavor = async (e) => {
 
@@ -32,13 +33,13 @@ function Main({favor_data}) {
         body: JSON.stringify({
             username: username,
             building: building,
-            favor_item: favor_item
+            favor_item: favor_item,
+            favor_description: favor_description
         }),
         })
         .then((response) => response.json())
         .then((data) => {
             console.log(data);
-            console.log("hello");
 
             // Refresh page
             Router.reload();
@@ -49,8 +50,6 @@ function Main({favor_data}) {
     // Remove a favor from database
     const handleRemoveFavor = async (id, e) => {
 
-        alert('hello! ID is: ' + id);
-        //console.log("ID is: " + id);
         e.preventDefault();
     
         await fetch("http://localhost:3001/remove_favor", {
@@ -62,8 +61,12 @@ function Main({favor_data}) {
         })
           .then((response) => response.json())
           .then((data) => {
-            console.log("Success?")
+            console.log("Successfully removed")
             console.log(data);
+            
+            //console.log("ID is: " + data._id);
+
+            // Reload pge
             Router.reload();
           })
           .catch((e) => console.log(e));
@@ -91,7 +94,7 @@ function Main({favor_data}) {
         username: '',
         building: '',
         favor_item: '',
-        __id: ''
+        favor_description: ''
     })
 
     return (
@@ -102,6 +105,7 @@ function Main({favor_data}) {
                         <th>Username</th>
                         <th>Building</th>
                         <th>Favor Item</th>
+                        <th>Favor Description</th>
                         <th>Action</th>
                     </tr>
                 </thead>
@@ -111,9 +115,9 @@ function Main({favor_data}) {
                         <td>{favor.username}</td>
                         <td>{favor.building}</td>
                         <td>{favor.favor_item}</td>
+                        <td>{favor.favor_description}</td>
                         <td>
                         <button onClick={(e)=>handleRemoveFavor(favor._id, e)}>Accept Favor</button>
-                        {/* <button onClick={()=>sayHello(favor._id)}>Accept Favor</button> */}
                         </td>
                     </tr> 
                 ))}
@@ -122,7 +126,7 @@ function Main({favor_data}) {
 
             <h2>Request a favor!</h2>
             <form onSubmit = {handleAddFavor}>
-                <input 
+                {/* <input 
                 type = "text"
                 name = "username"
                 required = "required"
@@ -136,7 +140,7 @@ function Main({favor_data}) {
                 required = "required"
                 placeholder = "Enter a building..."
                 onChange={(e) => setBuilding(e.target.value)}
-                />
+                /> */}
 
                  <input 
                 type = "text"
@@ -145,14 +149,20 @@ function Main({favor_data}) {
                 placeholder = "Enter a favor item..."
                 onChange={(e) => setFavorItem(e.target.value)}
                 />
+
+                <input 
+                type = "text"
+                name = "favor_description"
+                required = "required"
+                placeholder = "Enter a favor description..."
+                onChange={(e) => setFavorDescription(e.target.value)}
+                />
                 <button type = "submit"> Request </button>
             </form>
 
             <button onClick={(e)=>handleSignOut(e)}>Sign Out</button>
         </div>
-    
     );
 }
-
 
 export default Main

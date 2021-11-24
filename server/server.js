@@ -131,7 +131,7 @@ app.post("/add_favor", async (req, res) => {
   const building = currAcct.building;
   console.log(username)   
   console.log(building)
-  const newFavor = new Favor({username: username, building: building, favor_item: req.body.favor_item});
+  const newFavor = new Favor({username: username, building: building, favor_item: req.body.favor_item, favor_description: req.body.favor_description});
 
   newFavor.save((err, favor) => {
     console.log(favor);

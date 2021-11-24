@@ -29,12 +29,6 @@ export default function Home() {
             <h2>sign up page &rarr;</h2>
             <p>click here to sign up!</p>
           </a>
-
-          <a href="http://localhost:3000/main/" className={styles.card}>
-            <h2>main page &rarr;</h2>
-            <p>click here to go to the main page! even if you haven't logged in (it makes no sense)</p>
-          </a>
-  
         </div>
       </main>
     </div>
