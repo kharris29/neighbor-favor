@@ -147,17 +147,27 @@ app.post("/remove_favor", async (req, res) => {
   console.log(req.body.id)
   const obj_id = new mongodb.ObjectId(req.body.id);
   console.log(obj_id)
-  Favor.findOne({_id: obj_id}, (err, favor) => {
+  Favor.findOne({_id: obj_id}, async (err, favor) => {
     if (err) {
       console.log(err);
     } else {
         console.log(favor);
+        Account.findOne({username: favor.username}, (err, acc) => {
+            console.log(acc);
+            res.json(acc);
+        });
         Favor.deleteOne(favor, (err, result) => {
             console.log(result);
         });
     }
   });
   //Favor.deleteOne({_id: obj_id});  
+});
+
+app.post("/sign_out", async (req, res) => {
+    console.log("signing out");
+    currAcct = null;
+    res.json("Signed out");
 });
 
 app.listen(3001, () => console.log("Listening at localhost:3001"));

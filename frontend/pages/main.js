@@ -67,7 +67,24 @@ function Main({favor_data}) {
             Router.reload();
           })
           .catch((e) => console.log(e));
-      };
+    };
+
+    const handleSignOut = async (e) => {
+        e.preventDefault();
+        const message = "signing out";
+
+        await fetch("http://localhost:3001/sign_out", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({message}),
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            console.log("signing out");
+            Router.push("/");
+        })
+        .catch((e) => console.log(e));
+    };
 
     const [favors, setFavors] = useState(favor_data);
     const [addTableData, setAddTableData] = useState({
@@ -130,6 +147,8 @@ function Main({favor_data}) {
                 />
                 <button type = "submit"> Request </button>
             </form>
+
+            <button onClick={(e)=>handleSignOut(e)}>Sign Out</button>
         </div>
     
     );
