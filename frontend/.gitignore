@@ -7,8 +7,11 @@
 # testing
 /coverage
 
-next.js
+/.next/
+# next.js
 /out/
+
+/node_modules
 
 # production
 /build

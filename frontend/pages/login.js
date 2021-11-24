@@ -22,14 +22,14 @@ function Login() {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data.length != 0) {
-          sessionStorage.setItem("username", data[0].username);
-          sessionStorage.setItem("firstname", data[0].firstname);
-          sessionStorage.setItem("lastname", data[0].lastname);
-          sessionStorage.setItem("building", data[0].building);
-          sessionStorage.setItem("phone_number", data[0].phone_number);
+        if (data) {
+          sessionStorage.setItem("username", data.username);
+          sessionStorage.setItem("firstname", data.firstname);
+          sessionStorage.setItem("lastname", data.lastname);
+          sessionStorage.setItem("building", data.building);
+          sessionStorage.setItem("phone_number", data.phone_number);
           setTimeout(() => {
-            router.push("/");
+            router.push("/main");
           }, 800);
         } else {
           console.log("No Such User");
