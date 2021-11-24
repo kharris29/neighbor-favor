@@ -142,6 +142,13 @@ app.post("/add_favor", async (req, res) => {
   });
 });
 
+// Return current user's first name
+app.get("/first_name", async (req, res) => {
+  
+  const firstname = currAcct.firstname;
+  res.json(firstname);
+});
+
 app.post("/remove_favor", async (req, res) => {
   console.log("Backend received ID:")
   console.log(req.body.id)

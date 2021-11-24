@@ -42,3 +42,18 @@ width: 100%;
 .form * {
     font-size: 28px;
 }
+
+.rectangle {
+    padding: 2em;
+    text-align: left;
+    color: inherit;
+    font-size: 1.15rem;
+    text-decoration: none;
+    border: 1px solid #616161;
+    border-radius: 50px;
+    transition: color 0.15sease, border-color 0.15s ease;
+    width: 220px; 
+    position: absolute;
+    right: 30px;
+    top: 30px;
+  }

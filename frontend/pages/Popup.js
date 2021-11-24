@@ -13,12 +13,9 @@ function Popup(props) {
     ) : "";
 }
 
-//props.setTrigger(false)
-
 function closeButton(props) {
     props.setTrigger(false);
     Router.reload();
-    console.log("Close button function")
 }
 
 export default Popup
