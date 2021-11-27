@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import styles from "../styles/main.module.css";
+import styles from "../styles/Main.module.css";
+import Popup from './Popup';
 import Router from "next/router";
 
 // Get data from database to show in table
@@ -19,6 +20,24 @@ function Main({favor_data}) {
     const [building, setBuilding] = useState("");
     const [favor_item, setFavorItem] = useState("");
     const [favor_description, setFavorDescription] = useState("");
+    const [buttonPopup, setButtonPopup] = useState(false) // *****
+    const [popupUsername, setPopupUsername] = useState("");
+    const [popupFirstName, setPopupFirstName] = useState("");
+    const [popupLastName, setPopupLastName] = useState("");
+    const [popupBuilding, setPopupBuilding] = useState("");
+    const [popupPhoneNum, setPopupPhoneNum] = useState("");
+    const [currentFirstName, setCurrentFirstName] = useState("");
+
+    // Get current first name for "hello" top right box
+    getCurrentFirstName();
+
+    async function getCurrentFirstName() {
+        const res = await fetch('http://localhost:3001/first_name');
+        const data = await res.json();
+
+        setCurrentFirstName(data);
+        console.log("first name is: " + data);
+    }
 
     const handleAddFavor = async (e) => {
 
@@ -63,11 +82,16 @@ function Main({favor_data}) {
           .then((data) => {
             console.log("Successfully removed")
             console.log(data);
-            
-            //console.log("ID is: " + data._id);
 
-            // Reload pge
-            Router.reload();
+            // Assign popup info
+            setPopupUsername(data.username);
+            setPopupFirstName(data.firstname);
+            setPopupLastName(data.lastname);
+            setPopupBuilding(data.building);
+            setPopupPhoneNum(data.phone_number);
+
+            // Trigger popup
+            setButtonPopup(true);
           })
           .catch((e) => console.log(e));
     };
@@ -98,51 +122,52 @@ function Main({favor_data}) {
     })
 
     return (
-        <div className={styles.main_table_container}>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Username</th>
-                        <th>Building</th>
-                        <th>Favor Item</th>
-                        <th>Favor Description</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-            <tbody>
-                {favors.map((favor)=>  (
-                    <tr>
-                        <td>{favor.username}</td>
-                        <td>{favor.building}</td>
-                        <td>{favor.favor_item}</td>
-                        <td>{favor.favor_description}</td>
-                        <td>
-                        <button onClick={(e)=>handleRemoveFavor(favor._id, e)}>Accept Favor</button>
-                        </td>
-                    </tr> 
-                ))}
-            </tbody>
-            </table>
+        <div className={styles.main_container}>
+            
+            <h1 className = {styles.my_header}>Neighbor Favor</h1>
+            <div className = {styles.my_header3}>ʕ•́ᴥ•̀ʔ</div>
+            <h3 className = {styles.my_header2}>~ Help out a fellow neighbor ~</h3>
+            <h3 className = {styles.my_header}> </h3>
+
+            <div className = {styles.grid_header}>
+                <div>Username</div>
+                <div>Building</div>
+                <div>Favor Item</div>
+                <div>Favor Description</div>
+                <div>Action</div>
+            </div>
+
+            {favors.map((favor)=>  (
+                <div className = {styles.grid}>
+                    <div>{favor.username}</div>
+                    <div>{favor.building}</div>
+                    <div>{favor.favor_item}</div>
+                    <div>{favor.favor_description}</div>
+                    <div><button onClick={(e)=>handleRemoveFavor(favor._id, e)}>Accept Favor</button></div>
+                </div>
+                            
+            ))}
+
+            <Popup trigger = {buttonPopup} setTrigger={setButtonPopup}>
+                        <h2>Thanks for helping! :)</h2>
+                        <br></br>
+                        <h4>Here's your neighbor's contact information:</h4>
+                        <p>Username: {popupUsername} </p>
+                        <p>First Name: {popupFirstName}</p>
+                        <p>Last Name: {popupLastName}</p>
+                        <p>Building: {popupBuilding}</p>
+                        <p>Phone Number: {popupPhoneNum}</p>
+                    </Popup>
+
+            <div className={styles.rectangle}>
+                <p>Hello {currentFirstName}!</p>
+            </div>
 
             <h2>Request a favor!</h2>
             <form onSubmit = {handleAddFavor}>
-                {/* <input 
-                type = "text"
-                name = "username"
-                required = "required"
-                placeholder = "Enter a username..."
-                onChange={(e) => setUsername(e.target.value)}
-                />
-
-                <input 
-                type = "text"
-                name = "building"
-                required = "required"
-                placeholder = "Enter a building..."
-                onChange={(e) => setBuilding(e.target.value)}
-                /> */}
-
+             
                  <input 
+                className={styles.form_input}
                 type = "text"
                 name = "favor_item"
                 required = "required"
@@ -150,7 +175,8 @@ function Main({favor_data}) {
                 onChange={(e) => setFavorItem(e.target.value)}
                 />
 
-                <input 
+                <input
+                className={styles.form_input} 
                 type = "text"
                 name = "favor_description"
                 required = "required"
@@ -160,7 +186,9 @@ function Main({favor_data}) {
                 <button type = "submit"> Request </button>
             </form>
 
-            <button onClick={(e)=>handleSignOut(e)}>Sign Out</button>
+            <button className={styles.sign_out}
+            
+            onClick={(e)=>handleSignOut(e)}>Sign Out</button>
         </div>
     );
 }
