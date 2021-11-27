@@ -2,17 +2,26 @@
     display: flex;
     flex-direction: column;
     padding: 1rem;
-    border: 1px solid #000000;
+    margin-left:8%; 
+    margin-right:8%;
+    /* border: 1px solid #000000; */
 }
 
 .table {
 /* border-collapse: collapse; */
 border: 1px solid #000000;
 width: 60%;
+text-align: center;
 }
 
 .grid_header {
-  background-color: rgb(241, 179, 179);
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    padding: 0;
+    margin: 0;
+    row-gap: 0;
+    width: 50rem;
+    background-color: rgb(176, 206, 179);
 }
 
 .grid {
@@ -21,37 +30,44 @@ width: 60%;
     padding: 0;
     margin: 0;
     row-gap: 0;
-    width: 70%;
+    width: 50rem;
+    background-color: rgb(255, 255, 255);
 }
 
-/* For all descendents of grid */
 .grid > * {
     border: 1px solid black;
 }
 
+.grid_header > * {
+    border: 1px solid black;
+}
+
 .my_header {
-    text-align: left;
+    text-align: center;
+    /* padding-left: px; */
 }
 
-/* .th,
-.td {
-    border: 1px solid #000000;
-    text-align: left;
-    padding: 10px;
-    font-size: 15px;
-    border-right: 5px dashed Magenta;
+.my_header2 {
+    text-align: center;
+    color: rgb(133, 133, 133);
+    padding-left: 30px;
 }
 
-.th {
-    background-color: rgb(117, 201, 250);
+.my_header3 {
+    text-align: center;
+    color: rgb(0, 0, 0);
+    padding: 0px;
+    font-size: 35px;
 }
-
-.td {
-    background-color: rgb(205, 235, 253);
-} */
+.sign_out {
+    width: 6rem;
+    position: absolute;
+    top: 99px;
+    right: 81px;   
+}
 
 .form_input {
-    width: 20rem;
+    width: 12rem;
 }
 
 .form {
@@ -69,16 +85,18 @@ width: 60%;
 }
 
 .rectangle {
-    padding: 2em;
-    text-align: left;
+    padding: 1.3rem;
+    text-align: center;
     color: inherit;
     font-size: 1.15rem;
     text-decoration: none;
-    border: 1px solid #616161;
-    border-radius: 50px;
+    font-weight: bold;
+    border: 1px solid #000000;
+    border-radius: 8px;
     transition: color 0.15s ease, border-color 0.15s ease;
-    width: 220px; 
+    width: 200px; 
     position: absolute;
     right: 30px;
     top: 30px;
+    background-color: rgb(235, 231, 227);
   }

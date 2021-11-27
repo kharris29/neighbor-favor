@@ -125,15 +125,17 @@ function Main({favor_data}) {
         <div className={styles.main_container}>
             
             <h1 className = {styles.my_header}>Neighbor Favor</h1>
+            <div className = {styles.my_header3}>ʕ•́ᴥ•̀ʔ</div>
+            <h3 className = {styles.my_header2}>~ Help out a fellow neighbor ~</h3>
+            <h3 className = {styles.my_header}> </h3>
 
-            <div className = {[styles.grid, styles.grid_header].join(' ')}>
+            <div className = {styles.grid_header}>
                 <div>Username</div>
                 <div>Building</div>
                 <div>Favor Item</div>
                 <div>Favor Description</div>
                 <div>Action</div>
             </div>
-
 
             {favors.map((favor)=>  (
                 <div className = {styles.grid}>
@@ -146,50 +148,10 @@ function Main({favor_data}) {
                             
             ))}
 
-{/* 
-                <div className={styles.table}>
-                    <table>
-                        <thead>
-                            <div className = {styles.th}>
-                                <tr>
-                                    <th>Username</th>
-                                    <th>Building</th>
-                                    <th>Favor Item</th>
-                                    <th>Favor Description</th>
-                                    <th>Action</th>
-                                </tr>
-                            </div>
-                        </thead>
-                        <tbody>
-                            {favors.map((favor)=>  (
-                                    <div className = {styles.td}>
-                                    <tr>
-                                        
-                                        <td>{favor.username}</td>
-                                    
-                                       
-                                        <td>{favor.building}</td>
-                                        
-                                       
-                                        <td>{favor.favor_item}</td>
-                                       
-                                       
-                                        <td>{favor.favor_description}</td>
-                                       
-                                       
-                                        <td><button onClick={(e)=>handleRemoveFavor(favor._id, e)}>Accept Favor</button></td>
-                                     
-                                    </tr> 
-                                    </div>
-                            
-                            ))}
-                        </tbody>
-                    </table>
-                </div> */}
             <Popup trigger = {buttonPopup} setTrigger={setButtonPopup}>
-                        <h2>Thanks for helping!</h2>
+                        <h2>Thanks for helping! :)</h2>
                         <br></br>
-                        <h4>Here's your neighbor's contact:</h4>
+                        <h4>Here's your neighbor's contact information:</h4>
                         <p>Username: {popupUsername} </p>
                         <p>First Name: {popupFirstName}</p>
                         <p>Last Name: {popupLastName}</p>
@@ -200,6 +162,7 @@ function Main({favor_data}) {
             <div className={styles.rectangle}>
                 <p>Hello {currentFirstName}!</p>
             </div>
+
             <h2>Request a favor!</h2>
             <form onSubmit = {handleAddFavor}>
              
@@ -223,7 +186,9 @@ function Main({favor_data}) {
                 <button type = "submit"> Request </button>
             </form>
 
-            <button onClick={(e)=>handleSignOut(e)}>Sign Out</button>
+            <button className={styles.sign_out}
+            
+            onClick={(e)=>handleSignOut(e)}>Sign Out</button>
         </div>
     );
 }
