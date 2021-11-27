@@ -5,7 +5,7 @@ import Router from "next/router";
 function Popup(props) {
     return (props.trigger) ? (
         <div className={styles.popup}>
-            <div className={styles.popupinner}>
+            <div className={styles.popup_inner}>
                 <button className={styles.closebtn} onClick={() => closeButton(props)}>close</button>
                 { props.children }
             </div>

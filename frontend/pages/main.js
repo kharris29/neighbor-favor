@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import styles from "../styles/main.module.css";
+import styles from "../styles/Main.module.css";
 import Popup from './Popup';
 import Router from "next/router";
 
@@ -122,41 +122,79 @@ function Main({favor_data}) {
     })
 
     return (
-        <div className={styles.main_table_container}>
-            <table>
-                <thead>
-                    <tr>
-                        <th>Username</th>
-                        <th>Building</th>
-                        <th>Favor Item</th>
-                        <th>Favor Description</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-            <tbody>
-                {favors.map((favor)=>  (
-                    <tr>
-                        <td>{favor.username}</td>
-                        <td>{favor.building}</td>
-                        <td>{favor.favor_item}</td>
-                        <td>{favor.favor_description}</td>
-                        <td>
-                        <button onClick={(e)=>handleRemoveFavor(favor._id, e)}>Accept Favor</button>
-                        </td>
-                    </tr> 
-                ))}
-            </tbody>
-            </table>
+        <div className={styles.main_container}>
+            
+            <h1 className = {styles.my_header}>Neighbor Favor</h1>
 
+            <div className = {[styles.grid, styles.grid_header].join(' ')}>
+                <div>Username</div>
+                <div>Building</div>
+                <div>Favor Item</div>
+                <div>Favor Description</div>
+                <div>Action</div>
+            </div>
+
+
+            {favors.map((favor)=>  (
+                <div className = {styles.grid}>
+                    <div>{favor.username}</div>
+                    <div>{favor.building}</div>
+                    <div>{favor.favor_item}</div>
+                    <div>{favor.favor_description}</div>
+                    <div><button onClick={(e)=>handleRemoveFavor(favor._id, e)}>Accept Favor</button></div>
+                </div>
+                            
+            ))}
+
+{/* 
+                <div className={styles.table}>
+                    <table>
+                        <thead>
+                            <div className = {styles.th}>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Building</th>
+                                    <th>Favor Item</th>
+                                    <th>Favor Description</th>
+                                    <th>Action</th>
+                                </tr>
+                            </div>
+                        </thead>
+                        <tbody>
+                            {favors.map((favor)=>  (
+                                    <div className = {styles.td}>
+                                    <tr>
+                                        
+                                        <td>{favor.username}</td>
+                                    
+                                       
+                                        <td>{favor.building}</td>
+                                        
+                                       
+                                        <td>{favor.favor_item}</td>
+                                       
+                                       
+                                        <td>{favor.favor_description}</td>
+                                       
+                                       
+                                        <td><button onClick={(e)=>handleRemoveFavor(favor._id, e)}>Accept Favor</button></td>
+                                     
+                                    </tr> 
+                                    </div>
+                            
+                            ))}
+                        </tbody>
+                    </table>
+                </div> */}
             <Popup trigger = {buttonPopup} setTrigger={setButtonPopup}>
                         <h2>Thanks for helping!</h2>
                         <br></br>
                         <h4>Here's your neighbor's contact:</h4>
                         <p>Username: {popupUsername} </p>
-                        <p>First name: {popupFirstName}</p>
-                        <p>Last name: {popupLastName}</p>
+                        <p>First Name: {popupFirstName}</p>
+                        <p>Last Name: {popupLastName}</p>
                         <p>Building: {popupBuilding}</p>
-                        <p>Phone number: {popupPhoneNum}</p>
+                        <p>Phone Number: {popupPhoneNum}</p>
                     </Popup>
 
             <div className={styles.rectangle}>
@@ -164,7 +202,9 @@ function Main({favor_data}) {
             </div>
             <h2>Request a favor!</h2>
             <form onSubmit = {handleAddFavor}>
+             
                  <input 
+                className={styles.form_input}
                 type = "text"
                 name = "favor_item"
                 required = "required"
@@ -172,7 +212,8 @@ function Main({favor_data}) {
                 onChange={(e) => setFavorItem(e.target.value)}
                 />
 
-                <input 
+                <input
+                className={styles.form_input} 
                 type = "text"
                 name = "favor_description"
                 required = "required"
