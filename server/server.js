@@ -67,28 +67,6 @@ app.post("/register", async (req, res) => {
     console.log(error);
   }
 
-  // try {
-  //   const preexistingAccounts = Account.find({username: req.body.username});
-  //   if (preexistingAccounts.length == 0) {
-  //     const accountToSave = await new Account(req.body);
-  //     await accountToSave.save(accountToSave);
-  //     let infoToReturn = await Account.find({
-  //       username: req.body.username,
-  //     });
-  //     if (infoToReturn.length != 0) {
-  //       res.json("User Registered Successfully");
-  //     } else {
-  //       res.json("Something went wrong...");
-  //     }
-  //   } else {
-  //     console.log(preexistingAccounts);
-  //     res.json("Username already exists!");
-  //   }
-
-  // } catch (error) {
-  //   console.log(error);
-  // }
-  // let accExists = false;
 });
 
 // done
@@ -149,6 +127,10 @@ app.get("/first_name", async (req, res) => {
   res.json(firstname);
 });
 
+app.get("/curr_user", async (req, res) => {
+  res.json(currAcct);
+});
+
 app.post("/remove_favor", async (req, res) => {
   console.log("Backend received ID:")
   console.log(req.body.id)
@@ -159,7 +141,12 @@ app.post("/remove_favor", async (req, res) => {
       console.log(err);
     } else {
         console.log(favor);
-        Account.findOne({username: favor.username}, (err, acc) => {
+        Account.findOne({username: favor.username}, async (err, acc) => {
+            const favor_str = "Your request for " + favor.favor_item + 
+              " has been accepted by " + currAcct.firstname + " " + 
+              currAcct.lastname + " (" + currAcct.username + "). They will be contacting you shortly";
+            acc.notification = favor_str;
+            acc.save();
             console.log(acc);
             res.json(acc);
         });
