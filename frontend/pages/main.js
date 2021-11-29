@@ -32,8 +32,6 @@ function Main({ favor_data }) {
   getCurrentFirstName();
 
   // Get current account info (includes notification string)
-  //getCurrAcctInfo();
-
   async function getCurrentFirstName() {
     const res = await fetch("http://localhost:3001/first_name");
     const data = await res.json();
@@ -47,26 +45,20 @@ function Main({ favor_data }) {
     let notifString;
 
     try { 
-        //console.log(acct.notification);
         // Set notification string accordingly
         notifString = acct.notification;
-        //setNotifString(acct.notification);
-
+  
         console.log("NOTIF: " + notifString);
 
         // If string is not null or empty
         if (notifString) {
-          // Call popup
-          //setButtonPopup(true);?
-          //console.log("notif string is: " + notifString);
+
+          // Call popup here!
+          // notifString is all you need to display in the popup
+          //setButtonPopup(true); ?
 
           // Delete notification
           handleRemoveNotif();
-
-          //notifString = "";
-
-          // setNotifString("");
-          //console.log("notif string after removal: " + notifString);
         }
 
         else {
