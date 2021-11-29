@@ -15,7 +15,7 @@ export const getStaticProps = async () => {
 };
 
 function Main({ favor_data }) {
-  // Add a favor into database
+
   const [username, setUsername] = useState("");
   const [building, setBuilding] = useState("");
   const [favor_item, setFavorItem] = useState("");
@@ -27,17 +27,70 @@ function Main({ favor_data }) {
   const [popupBuilding, setPopupBuilding] = useState("");
   const [popupPhoneNum, setPopupPhoneNum] = useState("");
   const [currentFirstName, setCurrentFirstName] = useState("");
+  const [popupNotif, setPopupNotif] = useState("");
+  const [popupNotifTrigger, setPopupNotifTrigger] = useState(false);
 
   // Get current first name for "hello" top right box
   getCurrentFirstName();
-
+  //getCurrAcctInfo();
+  // Get current account info (includes notification string)
   async function getCurrentFirstName() {
     const res = await fetch("http://localhost:3001/first_name");
     const data = await res.json();
 
     setCurrentFirstName(data);
-    console.log("first name is: " + data);
   }
+
+  async function getCurrAcctInfo() {
+    const res = await fetch('http://localhost:3001/curr_user');
+    const acct = await res.json();
+    let popupString;
+
+    try { 
+        // Set notification string accordingly
+        popupString = acct.notification;  
+
+        // If string is not null or empty
+        if (popupString) {
+          console.log("NOTIF: " + popupString);
+          setPopupNotif(popupString);
+          // Call popup here!
+          setPopupNotifTrigger(true);
+          // notifString is all you need to display in the popup
+          //setButtonPopup(true); ?
+
+          // Delete notification
+          handleRemoveNotif();
+        }
+
+        else {
+          console.log("notif string is empty");
+        }
+
+
+    } catch (error) {
+        console.log("notif string does not exist\n");
+    }
+  }
+  
+  // Remove notification for current user
+  const handleRemoveNotif = async (e) => {
+  
+  //  e.preventDefault();
+
+    await fetch("http://localhost:3001/remove_notif", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Notif successfully removed (i think)");
+      })
+      .catch((e) => console.log(e));
+  };
 
   const handleAddFavor = async (e) => {
     e.preventDefault();
@@ -61,6 +114,7 @@ function Main({ favor_data }) {
 
         // Refresh page
         Router.reload();
+
       })
       .catch((e) => console.log(e));
   };
@@ -158,9 +212,15 @@ function Main({ favor_data }) {
         <p>Building: {popupBuilding}</p>
         <p>Phone Number: {popupPhoneNum}</p>
       </Popup>
+      
+      <Popup trigger={popupNotifTrigger} setTrigger={setPopupNotifTrigger}>
+        <h2>You have a new notification!</h2>
+        <br></br>
+        <p>{popupNotif}</p>
+      </Popup>
 
       <div className={styles.rectangle}>
-        <p>Hello {currentFirstName}!</p>
+        <p>Hello, {currentFirstName}!</p>
       </div>
 
       <h2>Request a favor!</h2>
@@ -185,6 +245,10 @@ function Main({ favor_data }) {
         <button type="submit"> Request </button>
       </form>
 
+      <button className={styles.notif} onClick={(e) => getCurrAcctInfo()}>
+        Check Notifications
+      </button>
+
       <div>
         <UserSearch />
       </div>
@@ -192,6 +256,7 @@ function Main({ favor_data }) {
       <button className={styles.sign_out} onClick={(e) => handleSignOut(e)}>
         Sign Out
       </button>
+
     </div>
   );
 }
