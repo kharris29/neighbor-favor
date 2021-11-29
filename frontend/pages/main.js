@@ -27,10 +27,12 @@ function Main({ favor_data }) {
   const [popupBuilding, setPopupBuilding] = useState("");
   const [popupPhoneNum, setPopupPhoneNum] = useState("");
   const [currentFirstName, setCurrentFirstName] = useState("");
+  const [popupNotif, setPopupNotif] = useState("");
+  const [popupNotifTrigger, setPopupNotifTrigger] = useState(false);
 
   // Get current first name for "hello" top right box
   getCurrentFirstName();
-
+  getCurrAcctInfo();
   // Get current account info (includes notification string)
   async function getCurrentFirstName() {
     const res = await fetch("http://localhost:3001/first_name");
@@ -42,28 +44,29 @@ function Main({ favor_data }) {
   async function getCurrAcctInfo() {
     const res = await fetch('http://localhost:3001/curr_user');
     const acct = await res.json();
-    let notifString;
+    let popupString;
 
     try { 
         // Set notification string accordingly
-        notifString = acct.notification;
-  
-        console.log("NOTIF: " + notifString);
+        popupString = acct.notification;  
 
         // If string is not null or empty
-        if (notifString) {
-
+        if (popupString) {
+          console.log("NOTIF: " + popupString);
+          setPopupNotif(popupString);
           // Call popup here!
+          setPopupNotifTrigger(true);
           // notifString is all you need to display in the popup
           //setButtonPopup(true); ?
 
           // Delete notification
-          handleRemoveNotif();
+      //    handleRemoveNotif();
         }
 
         else {
           console.log("notif string is empty");
         }
+
 
     } catch (error) {
         console.log("notif string does not exist\n");
@@ -71,9 +74,9 @@ function Main({ favor_data }) {
   }
   
   // Remove notification for current user
-  const handleRemoveNotif = async () => {
+  const handleRemoveNotif = async (e) => {
   
-    //e.preventDefault();
+  //  e.preventDefault();
 
     await fetch("http://localhost:3001/remove_notif", {
       method: "POST",
@@ -85,7 +88,7 @@ function Main({ favor_data }) {
       .then((response) => response.json())
       .then((data) => {
         console.log("Notif successfully removed (i think)");
-    
+        setPopupNotifTrigger(true);
       })
       .catch((e) => console.log(e));
   };
@@ -112,6 +115,7 @@ function Main({ favor_data }) {
 
         // Refresh page
         Router.reload();
+
       })
       .catch((e) => console.log(e));
   };
@@ -208,6 +212,12 @@ function Main({ favor_data }) {
         <p>Last Name: {popupLastName}</p>
         <p>Building: {popupBuilding}</p>
         <p>Phone Number: {popupPhoneNum}</p>
+      </Popup>
+      
+      <Popup trigger={popupNotifTrigger} setTrigger={setPopupNotifTrigger}>
+        <h2>You have a new notification</h2>
+        <br></br>
+        <p>{popupNotif}</p>
       </Popup>
 
       <div className={styles.rectangle}>
