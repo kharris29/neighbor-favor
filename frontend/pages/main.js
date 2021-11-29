@@ -28,10 +28,13 @@ function Main({ favor_data }) {
   const [popupPhoneNum, setPopupPhoneNum] = useState("");
   const [currentFirstName, setCurrentFirstName] = useState("");
   const [popupNotif, setPopupNotif] = useState("");
+  const [notifNum, setNotifNum] = useState("0");
+  const [noNotifsTrigger, setNoNotifsTrigger] = useState(false);
   const [popupNotifTrigger, setPopupNotifTrigger] = useState(false);
 
   // Get current first name for "hello" top right box
   getCurrentFirstName();
+  getNotification();
   //getCurrAcctInfo();
   // Get current account info (includes notification string)
   async function getCurrentFirstName() {
@@ -39,6 +42,17 @@ function Main({ favor_data }) {
     const data = await res.json();
 
     setCurrentFirstName(data);
+
+  }
+
+  async function getNotification() {
+    const res = await fetch('http://localhost:3001/curr_user');
+    const data = await res.json();
+
+    if(data.notification && data.notification != '')
+    {
+      setNotifNum("1");
+    }  
   }
 
   async function getCurrAcctInfo() {
@@ -64,6 +78,7 @@ function Main({ favor_data }) {
         }
 
         else {
+          setNoNotifsTrigger(true);
           console.log("notif string is empty");
         }
 
@@ -219,6 +234,10 @@ function Main({ favor_data }) {
         <p>{popupNotif}</p>
       </Popup>
 
+      <Popup trigger={noNotifsTrigger} setTrigger={setNoNotifsTrigger}>
+        <h2>You have no new notifications</h2>
+      </Popup>
+
       <div className={styles.rectangle}>
         <p>Hello, {currentFirstName}!</p>
       </div>
@@ -246,7 +265,7 @@ function Main({ favor_data }) {
       </form>
 
       <button className={styles.notif} onClick={(e) => getCurrAcctInfo()}>
-        Check Notifications
+        Check Notifications ({notifNum})
       </button>
 
       <div>
