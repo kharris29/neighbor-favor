@@ -87,7 +87,7 @@ function Signup() {
           id="building"
           onChange={(e) => setBuilding(e.target.value)}
         >
-          <option value="">Choose the building</option>
+          <option value="">Building</option>
           <option value="Centennial Hall">Centennial Hall</option>
           <option value="De Neve Plaza">De Neve Plaza</option>
           <option value="Dykstra Hall">Dykstra Hall</option>
