@@ -153,7 +153,7 @@ app.post("/remove_favor", async (req, res) => {
         Account.findOne({username: favor.username}, (err, acc) => {
             const notif_str = "Your request for " + favor.favor_item + 
               " has been accepted by " + currAcct.firstname + " " + currAcct.lastname + 
-              " (" + currAcct.username + "). They will be contacting you shortly";
+              " (" + currAcct.username + "). They will be contacting you shortly!";
             acc.notification = notif_str;
             acc.save();
             console.log(acc);

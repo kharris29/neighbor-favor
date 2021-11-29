@@ -214,13 +214,13 @@ function Main({ favor_data }) {
       </Popup>
       
       <Popup trigger={popupNotifTrigger} setTrigger={setPopupNotifTrigger}>
-        <h2>You have a new notification</h2>
+        <h2>You have a new notification!</h2>
         <br></br>
         <p>{popupNotif}</p>
       </Popup>
 
       <div className={styles.rectangle}>
-        <p>Hello {currentFirstName}!</p>
+        <p>Hello, {currentFirstName}!</p>
       </div>
 
       <h2>Request a favor!</h2>
@@ -245,8 +245,8 @@ function Main({ favor_data }) {
         <button type="submit"> Request </button>
       </form>
 
-      <button onClick={(e) => getCurrAcctInfo()}>
-        Check notifications
+      <button className={styles.notif} onClick={(e) => getCurrAcctInfo()}>
+        Check Notifications
       </button>
 
       <div>
