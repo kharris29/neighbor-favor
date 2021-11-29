@@ -6,6 +6,7 @@ function Login() {
   const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [errorToDisplay, setErrorToDisplay] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
@@ -32,7 +33,7 @@ function Login() {
             router.push("/main");
           }, 800);
         } else {
-          console.log("No Such User");
+          setErrorToDisplay("User does not exist! Please sign up");
         }
       })
       .catch((e) => console.log(e));
@@ -59,6 +60,7 @@ function Login() {
           required
         />
         <input type="submit" value="LOGIN" />
+        {errorToDisplay && <h2>{errorToDisplay}</h2>}
       </form>
     </div>
   );

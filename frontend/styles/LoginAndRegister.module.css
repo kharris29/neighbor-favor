@@ -21,3 +21,8 @@
   width: 100%;
   padding: 10px 15px;
 }
+
+.login_register_form > select {
+  width: 100%;
+  padding: 10px 15px;
+}

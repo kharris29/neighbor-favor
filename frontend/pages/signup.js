@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import styles from "../styles/LoginAndRegister.module.css";
+import { useRouter } from "next/router";
 
 function Signup() {
+  const router = useRouter();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [firstname, setFirstName] = useState("");
@@ -29,9 +31,11 @@ function Signup() {
     })
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         setAnswerFromServer(data);
-        document.querySelector("my-form").request();
+        document.getElementById("my-form").reset();
+        setTimeout(() => {
+          router.push("/login");
+        }, 4000);
       })
       .catch((e) => console.log(e));
   };
@@ -68,12 +72,22 @@ function Signup() {
           onChange={(e) => setLastName(e.target.value)}
           required
         />
-        <input
-          type="text"
-          placeholder="Building..."
+
+        <select
+          name="building"
+          id="building"
           onChange={(e) => setBuilding(e.target.value)}
-          required
-        />
+        >
+          <option value="">Choose the building</option>
+          <option value="Centennial Hall">Centennial Hall</option>
+          <option value="De Neve Plaza">De Neve Plaza</option>
+          <option value="Dykstra Hall">Dykstra Hall</option>
+          <option value="Hedrick Court">Hedrick Court</option>
+          <option value="Olympic Hall">Olympic Hall</option>
+          <option value="Rieber Court">Rieber Court</option>
+          <option value="Sproul Plaza">Sproul Plaza</option>
+        </select>
+
         <input
           type="text"
           placeholder="Phone Number..."
