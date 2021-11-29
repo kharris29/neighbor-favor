@@ -15,7 +15,7 @@ export const getStaticProps = async () => {
 };
 
 function Main({ favor_data }) {
-  // Add a favor into database
+
   const [username, setUsername] = useState("");
   const [building, setBuilding] = useState("");
   const [favor_item, setFavorItem] = useState("");
@@ -32,22 +32,71 @@ function Main({ favor_data }) {
   getCurrentFirstName();
 
   // Get current account info (includes notification string)
-  getCurrAcctInfo();
+  //getCurrAcctInfo();
 
   async function getCurrentFirstName() {
     const res = await fetch("http://localhost:3001/first_name");
     const data = await res.json();
 
     setCurrentFirstName(data);
-    console.log("first name is: " + data);
   }
 
   async function getCurrAcctInfo() {
     const res = await fetch('http://localhost:3001/curr_user');
     const acct = await res.json();
+    let notifString;
 
-    console.log(acct)
+    try { 
+        //console.log(acct.notification);
+        // Set notification string accordingly
+        notifString = acct.notification;
+        //setNotifString(acct.notification);
+
+        console.log("NOTIF: " + notifString);
+
+        // If string is not null or empty
+        if (notifString) {
+          // Call popup
+          //setButtonPopup(true);?
+          //console.log("notif string is: " + notifString);
+
+          // Delete notification
+          handleRemoveNotif();
+
+          //notifString = "";
+
+          // setNotifString("");
+          //console.log("notif string after removal: " + notifString);
+        }
+
+        else {
+          console.log("notif string is empty");
+        }
+
+    } catch (error) {
+        console.log("notif string does not exist\n");
+    }
   }
+  
+  // Remove notification for current user
+  const handleRemoveNotif = async () => {
+  
+    //e.preventDefault();
+
+    await fetch("http://localhost:3001/remove_notif", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("Notif successfully removed (i think)");
+    
+      })
+      .catch((e) => console.log(e));
+  };
 
   const handleAddFavor = async (e) => {
     e.preventDefault();
@@ -195,6 +244,10 @@ function Main({ favor_data }) {
         <button type="submit"> Request </button>
       </form>
 
+      <button onClick={(e) => getCurrAcctInfo()}>
+        Notifications
+      </button>
+
       <div>
         <UserSearch />
       </div>
@@ -202,6 +255,7 @@ function Main({ favor_data }) {
       <button className={styles.sign_out} onClick={(e) => handleSignOut(e)}>
         Sign Out
       </button>
+
     </div>
   );
 }

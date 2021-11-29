@@ -135,7 +135,9 @@ app.get("/curr_user", async (req, res) => {
 // Set the notification string to be an empty string
 app.post("/remove_notif", async (req, res) => {
   currAcct.notification = "";
+  res.json(currAcct.notification);
   currAcct.save();
+  console.log("backend notif: " + currAcct.notification);
 });
 
 app.post("/remove_favor", async (req, res) => {
