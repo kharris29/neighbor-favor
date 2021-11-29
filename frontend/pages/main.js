@@ -31,12 +31,22 @@ function Main({ favor_data }) {
   // Get current first name for "hello" top right box
   getCurrentFirstName();
 
+  // Get current account info (includes notification string)
+  getCurrAcctInfo();
+
   async function getCurrentFirstName() {
     const res = await fetch("http://localhost:3001/first_name");
     const data = await res.json();
 
     setCurrentFirstName(data);
     console.log("first name is: " + data);
+  }
+
+  async function getCurrAcctInfo() {
+    const res = await fetch('http://localhost:3001/curr_user');
+    const acct = await res.json();
+
+    console.log(acct)
   }
 
   const handleAddFavor = async (e) => {
