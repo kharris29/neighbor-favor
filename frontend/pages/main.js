@@ -32,7 +32,7 @@ function Main({ favor_data }) {
 
   // Get current first name for "hello" top right box
   getCurrentFirstName();
-  getCurrAcctInfo();
+  //getCurrAcctInfo();
   // Get current account info (includes notification string)
   async function getCurrentFirstName() {
     const res = await fetch("http://localhost:3001/first_name");
@@ -60,7 +60,7 @@ function Main({ favor_data }) {
           //setButtonPopup(true); ?
 
           // Delete notification
-      //    handleRemoveNotif();
+          handleRemoveNotif();
         }
 
         else {
@@ -88,7 +88,6 @@ function Main({ favor_data }) {
       .then((response) => response.json())
       .then((data) => {
         console.log("Notif successfully removed (i think)");
-        setPopupNotifTrigger(true);
       })
       .catch((e) => console.log(e));
   };
@@ -247,7 +246,7 @@ function Main({ favor_data }) {
       </form>
 
       <button onClick={(e) => getCurrAcctInfo()}>
-        Notifications
+        Check notifications
       </button>
 
       <div>
