@@ -49,9 +49,8 @@ function Signup() {
         <link rel="icon" href="/neighborfavor.ico" />
       </Head>
       <div className="image">
-          <img class = "resize" src = "/SignUp1.png"/>
+          <img src = "/SignUp1.png"/>
         </div>
-        <br></br>
       <form
         id="my-form"
         onSubmit={handleRegister}
@@ -109,7 +108,7 @@ function Signup() {
         {answerFromServer && <h2>{answerFromServer}</h2>}
       </form>
       <div className="image">
-          <img class = "resize" src = "/SignUp2.png"/>
+          <img src = "/SignUp2.png"/>
         </div>
     </div>
   );

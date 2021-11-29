@@ -70,7 +70,7 @@ function Login() {
         {errorToDisplay && <h2>{errorToDisplay}</h2>}
       </form>
       <div className="image">
-          <img class = "resize" src = "/neighbors.png"/>
+          <img src = "/neighbors.png"/>
         </div>
         </div>
 
