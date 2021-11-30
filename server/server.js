@@ -5,7 +5,7 @@ const mongoose = require("mongoose");
 const mongodb = require("mongodb");
 const app = express();
 
-const Account_Ctrl = require('./controllers/account-ctrl.js');
+const Account_Ctrl = require("./controllers/account-ctrl.js");
 
 const Test = require("./models/test-model.js");
 const Account = require("./models/account.js");
@@ -39,16 +39,14 @@ app.get("/", async (req, res) => {
 
 // Sign up route
 app.post("/register", async (req, res) => {
-
-  try{
-    Account.find({username:req.body.username}, async (err, accs) => 
-    {
+  try {
+    Account.find({ username: req.body.username }, async (err, accs) => {
       console.log(accs);
       console.log(accs.length);
       if (accs.length != 0) {
         console.log("Inside if statement");
         accExists = true;
-        res.json("User already exists!")
+        res.json("User already exists!");
       } else {
         const accountToSave = await new Account(req.body);
         await accountToSave.save(accountToSave);
@@ -60,13 +58,11 @@ app.post("/register", async (req, res) => {
         } else {
           res.json("Something went wrong...");
         }
-      } 
+      }
     });
-    
   } catch (error) {
     console.log(error);
   }
-
 });
 
 // done
@@ -77,11 +73,15 @@ app.post("/login", async (req, res) => {
   try {
     const account = await Account.findOne({
       username: username,
-      password: password,
     });
-    currAcct = account;
-    res.json(account);
-    console.log(account);
+    if (!account) {
+      res.json("No Such User");
+    } else if (account.password === password) {
+      currAcct = account;
+      res.json(account);
+    } else {
+      res.json("Wrong username or password");
+    }
   } catch (error) {
     console.log(error);
   }
@@ -93,7 +93,7 @@ app.get("/favor_requests", async (req, res) => {
     if (err) {
       console.log(err);
     } else {
-    //   console.log(favors);
+      //   console.log(favors);
       console.log(currAcct);
       res.json(favors);
     }
@@ -102,27 +102,29 @@ app.get("/favor_requests", async (req, res) => {
 
 // Create a favor request
 app.post("/add_favor", async (req, res) => {
-
-  console.log('Calling proper function!');
+  console.log("Calling proper function!");
   console.log(currAcct);
   const username = currAcct.username;
   const building = currAcct.building;
-  console.log(username)   
-  console.log(building)
-  const newFavor = new Favor({username: username, building: building, favor_item: req.body.favor_item, favor_description: req.body.favor_description});
+  console.log(username);
+  console.log(building);
+  const newFavor = new Favor({
+    username: username,
+    building: building,
+    favor_item: req.body.favor_item,
+    favor_description: req.body.favor_description,
+  });
 
   newFavor.save((err, favor) => {
     console.log(favor);
-    console.log('added!')
-    res.json('New Favor Added!');
+    console.log("added!");
+    res.json("New Favor Added!");
     // res.json(favor);
-    
   });
 });
 
 // Return current user's first name
 app.get("/first_name", async (req, res) => {
-  
   const firstname = currAcct.firstname;
   res.json(firstname);
 });
@@ -141,36 +143,43 @@ app.post("/remove_notif", async (req, res) => {
 });
 
 app.post("/remove_favor", async (req, res) => {
-  console.log("Backend received ID:")
-  console.log(req.body.id)
+  console.log("Backend received ID:");
+  console.log(req.body.id);
   const obj_id = new mongodb.ObjectId(req.body.id);
-  console.log(obj_id)
-  Favor.findOne({_id: obj_id}, async (err, favor) => {
+  console.log(obj_id);
+  Favor.findOne({ _id: obj_id }, async (err, favor) => {
     if (err) {
       console.log(err);
     } else {
-        console.log(favor);
-        Account.findOne({username: favor.username}, (err, acc) => {
-            const notif_str = "Your request for " + favor.favor_item + 
-              " has been accepted by " + currAcct.firstname + " " + currAcct.lastname + 
-              " (" + currAcct.username + "). They will be contacting you shortly!";
-            acc.notification = notif_str;
-            acc.save();
-            console.log(acc);
-            res.json(acc);
-        });
-        Favor.deleteOne(favor, (err, result) => {
-            console.log(result);
-        });
+      console.log(favor);
+      Account.findOne({ username: favor.username }, (err, acc) => {
+        const notif_str =
+          "Your request for " +
+          favor.favor_item +
+          " has been accepted by " +
+          currAcct.firstname +
+          " " +
+          currAcct.lastname +
+          " (" +
+          currAcct.username +
+          "). They will be contacting you shortly!";
+        acc.notification = notif_str;
+        acc.save();
+        console.log(acc);
+        res.json(acc);
+      });
+      Favor.deleteOne(favor, (err, result) => {
+        console.log(result);
+      });
     }
   });
-  //Favor.deleteOne({_id: obj_id});  
+  //Favor.deleteOne({_id: obj_id});
 });
 
 app.post("/sign_out", async (req, res) => {
-    console.log("signing out");
-    currAcct = null;
-    res.json("Signed out");
+  console.log("signing out");
+  currAcct = null;
+  res.json("Signed out");
 });
 
 app.listen(3001, () => console.log("Listening at localhost:3001"));

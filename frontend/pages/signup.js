@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import Head from 'next/head'
+import React, { useState, useEffect } from "react";
+import Head from "next/head";
 import styles from "../styles/LoginAndRegister.module.css";
 import { useRouter } from "next/router";
 
@@ -11,6 +11,7 @@ function Signup() {
   const [lastname, setLastName] = useState("");
   const [building, setBuilding] = useState("");
   const [phone_number, setPhoneNumber] = useState("");
+  const [phError, setPhError] = useState("");
   const [answerFromServer, setAnswerFromServer] = useState("");
 
   const handleRegister = async (e) => {
@@ -36,10 +37,18 @@ function Signup() {
         document.getElementById("my-form").reset();
         setTimeout(() => {
           router.push("/login");
-        }, 4000);
+        }, 1500);
       })
       .catch((e) => console.log(e));
   };
+
+  useEffect(() => {
+    if (phone_number.length > 12) {
+      setPhError("Phone number must be less than 12 characters");
+    } else {
+      setPhError("");
+    }
+  }, [phone_number]);
 
   return (
     <div className={styles.login_register_container}>
@@ -49,8 +58,8 @@ function Signup() {
         <link rel="icon" href="/neighborfavor.ico" />
       </Head>
       <div className="image">
-          <img src = "/SignUp1.png"/>
-        </div>
+        <img src="/SignUp1.png" />
+      </div>
       <form
         id="my-form"
         onSubmit={handleRegister}
@@ -98,18 +107,19 @@ function Signup() {
         </select>
 
         <input
-          type="text"
+          type="number"
           placeholder="Phone Number..."
           onChange={(e) => setPhoneNumber(e.target.value)}
           required
         />
+        {phError && <p>{phError}</p>}
 
         <input type="submit" value="REGISTER" />
         {answerFromServer && <h2>{answerFromServer}</h2>}
       </form>
       <div className="image">
-          <img src = "/SignUp2.png"/>
-        </div>
+        <img src="/SignUp2.png" />
+      </div>
     </div>
   );
 }
