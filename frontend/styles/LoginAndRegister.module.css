@@ -1,0 +1,28 @@
+.login_register_container {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding-top: 100px;
+}
+
+.login_register_form {
+  width: 500px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 15px;
+  border: 2px solid lightblue;
+  padding: 20px;
+}
+
+.login_register_form > input {
+  width: 100%;
+  padding: 10px 15px;
+}
+
+.login_register_form > select {
+  width: 100%;
+  padding: 10px 15px;
+}

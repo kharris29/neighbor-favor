@@ -1,0 +1,110 @@
+.main_container {
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    margin-left:8%; 
+    margin-right:8%;
+    /* border: 1px solid #000000; */
+}
+
+.table {
+/* border-collapse: collapse; */
+border: 1px solid #000000;
+width: 60%;
+text-align: center;
+}
+
+.grid_header {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    padding: 0;
+    margin: 0;
+    row-gap: 0;
+    width: 50rem;
+    background-color: rgb(176, 206, 179);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    padding: 0;
+    margin: 0;
+    row-gap: 0;
+    width: 50rem;
+    background-color: rgb(255, 255, 255);
+}
+
+.grid > * {
+    border: 1px solid black;
+}
+
+.grid_header > * {
+    border: 1px solid black;
+}
+
+.my_header {
+    text-align: center;
+    /* padding-left: px; */
+}
+
+.my_header2 {
+    text-align: center;
+    color: rgb(133, 133, 133);
+    padding-left: 30px;
+}
+
+.my_header3 {
+    text-align: center;
+    color: rgb(0, 0, 0);
+    padding: 0px;
+    font-size: 35px;
+}
+.sign_out {
+    width: 6rem;
+    position: absolute;
+    top: 99px;
+    right: 81px;   
+}
+
+.form_input {
+    width: 12rem;
+}
+
+.form {
+    display: flex;
+    gap: 5px;
+}
+
+.form td:last-child {
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.form * {
+    font-size: 28px;
+}
+
+.rectangle {
+    padding: 1.3rem;
+    padding-bottom: 4.9rem;
+    text-align: center;
+    color: inherit;
+    font-size: 1.15rem;
+    text-decoration: none;
+    font-weight: bold;
+    border: 1px solid #000000;
+    border-radius: 8px;
+    transition: color 0.15s ease, border-color 0.15s ease;
+    width: 200px; 
+    position: absolute;
+    right: 30px;
+    top: 30px;
+    background-color: rgb(136, 177, 138); 
+  }
+
+  .notif {
+    width: 6rem;
+    position: absolute;
+    top: 130px;
+    right: 81px;   
+  }
