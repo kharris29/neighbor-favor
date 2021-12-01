@@ -163,7 +163,14 @@ app.post("/remove_favor", async (req, res) => {
           " (" +
           currAcct.username +
           "). They will be contacting you shortly!";
-        acc.notification = notif_str;
+        if(acc.notification)
+        {
+          acc.notification += " •────────────────⋅☾☽⋅────────────────• " + notif_str;
+        }
+        else
+        {
+          acc.notification = notif_str;
+        }
         acc.save();
         console.log(acc);
         res.json(acc);
