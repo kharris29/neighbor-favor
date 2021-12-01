@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import Head from 'next/head'
+import Head from "next/head";
 import styles from "../styles/LoginAndRegister.module.css";
 import { useRouter } from "next/router";
 
@@ -24,7 +24,7 @@ function Login() {
     })
       .then((response) => response.json())
       .then((data) => {
-        if (data) {
+        if (typeof data === "object") {
           sessionStorage.setItem("username", data.username);
           sessionStorage.setItem("firstname", data.firstname);
           sessionStorage.setItem("lastname", data.lastname);
@@ -34,7 +34,7 @@ function Login() {
             router.push("/main");
           }, 800);
         } else {
-          setErrorToDisplay("User does not exist! Please sign up");
+          setErrorToDisplay(data);
         }
       })
       .catch((e) => console.log(e));
@@ -48,32 +48,31 @@ function Login() {
         <link rel="icon" href="/neighborfavor.ico" />
       </Head>
       <div className={styles.grid}>
-      <form
-        id="my-form"
-        onSubmit={handleLogin}
-        className={styles.login_register_form}
-      >
-        <h1>Login Here</h1>
-        <input
-          type="text"
-          placeholder="Username..."
-          onChange={(e) => setUsername(e.target.value)}
-          required
-        />
-        <input
-          type="password"
-          placeholder="Password..."
-          onChange={(e) => setPassword(e.target.value)}
-          required
-        />
-        <input type="submit" value="LOGIN" />
-        {errorToDisplay && <h2>{errorToDisplay}</h2>}
-      </form>
-      <div className="image">
-          <img src = "/neighbors.png"/>
+        <form
+          id="my-form"
+          onSubmit={handleLogin}
+          className={styles.login_register_form}
+        >
+          <h1>Login Here</h1>
+          <input
+            type="text"
+            placeholder="Username..."
+            onChange={(e) => setUsername(e.target.value)}
+            required
+          />
+          <input
+            type="password"
+            placeholder="Password..."
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+          <input type="submit" value="LOGIN" />
+          {errorToDisplay && <h2>{errorToDisplay}</h2>}
+        </form>
+        <div className="image">
+          <img src="/neighbors.png" />
         </div>
-        </div>
-
+      </div>
     </div>
   );
 }

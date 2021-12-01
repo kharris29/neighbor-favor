@@ -19,7 +19,7 @@ function UserSearch() {
   return (
     <div className={styles.user_search_container}>
       <div className={styles.user_search_container_form}>
-        <h1>Search Users by Building</h1>
+        <h1>Find a fellow neighbor by building!</h1>
         <input
           type="text"
           placeholder="Type in building here"
