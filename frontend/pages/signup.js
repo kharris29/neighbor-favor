@@ -35,9 +35,11 @@ function Signup() {
       .then((data) => {
         setAnswerFromServer(data);
         document.getElementById("my-form").reset();
-        setTimeout(() => {
-          router.push("/login");
-        }, 1500);
+        if (data === "User Registered Successfully") {
+          setTimeout(() => {
+            router.push("/login");
+          }, 1500);
+        }
       })
       .catch((e) => console.log(e));
   };

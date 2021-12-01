@@ -14,14 +14,22 @@ width: 60%;
 text-align: center;
 }
 
+.td {
+    text-align: left;
+    padding: 5%;
+}
+
 .grid_header {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    padding: 0;
+    padding: 15;
     margin: 0;
     row-gap: 0;
     width: 50rem;
     background-color: rgb(176, 206, 179);
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .grid {
@@ -32,6 +40,8 @@ text-align: center;
     row-gap: 0;
     width: 50rem;
     background-color: rgb(255, 255, 255);
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .grid > * {
@@ -62,12 +72,20 @@ text-align: center;
 .sign_out {
     width: 6rem;
     position: absolute;
-    top: 99px;
-    right: 81px;   
+    top: 79px;
+    right: 83px;   
+}
+
+.request {
+    margin: auto;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
 }
 
 .form_input {
     width: 12rem;
+    margin-right: 10px;
 }
 
 .form {
@@ -85,7 +103,7 @@ text-align: center;
 }
 
 .rectangle {
-    padding: 1.3rem;
+    /* padding: 1.3rem; */
     padding-bottom: 4.9rem;
     text-align: center;
     color: inherit;
@@ -100,11 +118,11 @@ text-align: center;
     right: 30px;
     top: 30px;
     background-color: rgb(136, 177, 138); 
-  }
+}
 
-  .notif {
+.notif {
     width: 6rem;
     position: absolute;
-    top: 130px;
-    right: 81px;   
-  }
+    top: 105px;
+    right: 83px;   
+}

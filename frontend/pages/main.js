@@ -210,11 +210,11 @@ function Main({ favor_data }) {
 
           {favors.map((favor) => (
             <div className={styles.grid}>
-              <div>{favor.username}</div>
-              <div>{favor.building}</div>
-              <div>{favor.favor_item}</div>
-              <div>{favor.favor_description}</div>
-              <div>
+              <div className={styles.td}>{favor.username}</div>
+              <div className={styles.td}>{favor.building}</div>
+              <div className={styles.td}>{favor.favor_item}</div>
+              <div className={styles.td}>{favor.favor_description}</div>
+              <div className={styles.td}>
                 <button onClick={(e) => handleRemoveFavor(favor._id, e)}>
                   Accept Favor
                 </button>
@@ -247,7 +247,8 @@ function Main({ favor_data }) {
             <p>Hello, {currentFirstName}!</p>
           </div>
 
-          <h2>Request a favor!</h2>
+          <div className={styles.request}>  
+          <h2 >Request a favor!</h2>
           <form onSubmit={handleAddFavor}>
             <input
               className={styles.form_input}
@@ -268,7 +269,8 @@ function Main({ favor_data }) {
             />
             <button type="submit"> Request </button>
           </form>
-
+          </div>   
+           
           <button className={styles.notif} onClick={(e) => getCurrAcctInfo()}>
             Check Notifications ({notifNum})
           </button>
