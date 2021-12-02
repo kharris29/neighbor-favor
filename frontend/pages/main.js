@@ -267,7 +267,7 @@ function Main({ favor_data }) {
               placeholder="Enter a favor description..."
               onChange={(e) => setFavorDescription(e.target.value)}
             />
-            <button type="submit"> Request </button>
+            <button className={styles.requestbutton} type="submit"> Request </button>
           </form>
           </div>   
            
