@@ -20,7 +20,7 @@ export default function Home() {
 
     <div className={styles.hero}>
       <div className={styles.leftcolumn}>
-        <h1>welcome to neighbor favor!</h1>
+        <h1>Welcome to Neighbor Favor!</h1>
         <p>Need a favor? No worries, your neighbors have your back!
         </p>
         <div className={styles.button}>
@@ -39,12 +39,12 @@ export default function Home() {
 
       <main className={styles.main}>
         <h1 className={styles.title}>
-          Request, accept, get the help you need right here
+          Request, accept, get the help you need right here...
         </h1>
 
         <p className={styles.description}>
-          Ever wish that you brought that one thing you left at home? Well with a simple favor request, 
-          you can now ask countless of neighboring friends for their help!
+          Ever wish that you brought that one thing you left at home? Well, with a simple favor request, 
+          you can now ask countless friendly neighbors for their help!
         </p>
         <p className={styles.description}>
           Let's keep the good karma chain going! Spread the love and help each other out!
@@ -52,14 +52,14 @@ export default function Home() {
 
         <div className={styles.grid}>
           <a href="http://localhost:3000/login/" className={styles.card}>
-            <h2>login page &rarr;</h2>
-            <p>click here to log in!</p>
+            <h2>Login Page &rarr;</h2>
+            <p>Click here to log in!</p>
           </a>
         
 
           <a href="http://localhost:3000/signup/" className={styles.card}>
-            <h2>sign up page &rarr;</h2>
-            <p>click here to sign up!</p>
+            <h2>Sign Up Page &rarr;</h2>
+            <p>Click here to sign up!</p>
           </a>
         </div>
       </main>
