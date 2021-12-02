@@ -198,7 +198,9 @@ function Main({ favor_data }) {
           <h1 className={styles.my_header}>Neighbor Favor</h1>
           <div className={styles.my_header3}>ʕ•́ᴥ•̀ʔ</div>
           <h3 className={styles.my_header2}>~ Help out a fellow neighbor ~</h3>
-          <h3 className={styles.my_header}> </h3>
+          <br></br>
+          <br></br>
+          <br></br>
 
           <div className={styles.grid_header}>
             <div>Username</div>
